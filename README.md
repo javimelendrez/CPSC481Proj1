@@ -1,1 +1,1 @@
-# CPSC481Proj1
+# CPSC 481 Proj1
