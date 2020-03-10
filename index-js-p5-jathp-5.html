@@ -1,0 +1,376 @@
+<!DOCTYPE html>    <!-- this is a HTML comment -->    <!--  -->
+<html lang="">    <!-- HTML page begs/ends w 'html' tag -->
+  <head>    <!-- HTML page has 'head'section and 'body' section -->
+    <meta foo="Time-stamp: <2020-02-17 19:13:26 Chuck Siska>">
+    <!-- ================================================ Mods ====
+     o- to 2020-02-09 22:18:17: add btn onclick exported fn
+     o- to 2020-02-10 17:22:23: log btn onclick
+    .-->
+    <!--
+        Some code, mod'd, from "Introducing JavaScript Game Development" by Stuart.
+      -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jathp-P5-JS-HTML</title>     <!-- Browser or tab title -->
+    <link rel="stylesheet" href="assets/styles.css">    <!-- Tiny CSS style file -->
+    <style> body {padding: 0; margin: 0;} </style>    <!-- Bit of in-line CSS -->
+    <script src="p5.js"></script>    <!-- Load P5.JS, one file -->
+    <!-- For more P5.JS, CF https://github.com/processing/p5.js/wiki -->
+    <script src="cs-sketch.js"></script>    <!-- Load my setup+draw P5-req'd fcns -->
+
+    <script type="text/javascript" src="Jathp.js"></script>    <!-- Load Jathp -->
+
+  </head>
+  <body>     <!-- HTML page body, where raw text gets displayed on the page -->
+    <h1>Playing the HTML canvas w Jathp & P5</h1>    <!-- Text in a high priority heading -->
+    <p>    <!-- A paragraph 'break', to start a new paragraph -->
+    Now is the time for all good squid to come to the aid of their waters.
+  </body>    <!-- HTML display page ends here -->
+
+<script src="assets/draw-stuff.js"></script> <!-- Load some JS fcns in a file -->
+
+<!-- ==================================================================== -->
+
+<script type="text/lisp"> ;File: prelude.lsp
+; This file contains aliases and common definitions.
+; It also imports the javascript Math functions.
+
+(def + plus)
+(def define def)
+(def #t 't)
+(def #f Nil)
+(def nil Nil)
+(def - minus)
+(def / divide)
+(def % rem)
+(def * times)
+(def = equal)
+(def eq? equal)
+(def head car)
+(def first car)
+(def tail cdr)
+(def rest cdr)
+(def eq equal)
+(defun null (x) (equal x Nil))
+(defun zerop (x) (equal x 0))
+(defun plusp (x) (> x 0))
+(defun minusp (x) (< x 0))
+(defun evenp (x) (equal (rem x 2) 0))
+(defun oddp (x) (/= (rem x 2) 1))
+
+;; CS: pprint the Javathcript prelude fragment.
+(defun member (E L) ;; CS: orig name was "list-member", non-std.
+  (cond
+   ((null L) Nil) ;; Not found in list L.
+   ((equal E (first L)) E) ;; Found E, return L's remainder CS:. Orig retval = 't.
+   ('t (member E (rest L)))))  ;; Not in head, check tail.
+
+(defun map (F L) ;;convert L=(e1 e2 ... eN) to ((F e1) (F e2) ... (F eN))
+  (if (null L)
+      Nil
+    (cons (F (head L))
+          (map F (tail L)))))
+
+
+; CADDRs
+
+(defun caar (x) (car (car x)))                    
+(defun cadr (x) (car (cdr x)))                    
+(defun cdar (x) (cdr (car x)))                   
+(defun cddr (x) (cdr (cdr x)))                    
+(defun caaar (x) (car (car (car x))))              
+(defun caadr (x) (car (car (cdr x))))             
+(defun cadar (x) (car (cdr (car x))))              
+(defun caddr (x) (car (cdr (cdr x))))              
+(defun cdaar (x) (cdr (car (car x))))              
+(defun cdadr (x) (cdr (car (cdr x))))              
+(defun cddar (x) (cdr (cdr (car x))))              
+(defun cdddr (x) (cdr (cdr (cdr x))))              
+(defun caaaar (x) (car (car (car (car x)))))        
+(defun caaadr (x) (car (car (car (cdr x)))))        
+(defun caadar (x) (car (car (cdr (car x)))))        
+(defun caaddr (x) (car (car (cdr (cdr x)))))        
+(defun cadaar (x) (car (cdr (car (car x)))))        
+(defun cadadr (x) (car (cdr (car (cdr x)))))        
+(defun caddar (x) (car (cdr (cdr (car x)))))        
+(defun cadddr (x) (car (cdr (cdr (cdr x)))))        
+(defun cdaaar (x) (cdr (car (car (car x)))))        
+(defun cdaadr (x) (cdr (car (car (cdr x)))))        
+(defun cdadar (x) (cdr (car (cdr (car x)))))        
+(defun cdaddr (x) (cdr (car (cdr (cdr x)))))        
+(defun cddaar (x) (cdr (cdr (car (car x)))))        
+(defun cddadr (x) (cdr (cdr (car (cdr x)))))        
+(defun cdddar (x) (cdr (cdr (cdr (car x)))))        
+(defun cddddr (x) (cdr (cdr (cdr (cdr x)))))        
+
+; Some stuff specific to being run in a browser.
+
+(def document (js "document"))
+(def body (js "document.body"))
+(def window (js "window"))
+(def getElement (method document "getElementById"))
+(def alert (method window "alert"))
+(def message alert)
+(def confirm (method window "confirm"))
+(def console (js "console"))
+
+; To be more like emacs, you might want to uncomment these two lines
+; (def setp set)
+; (def set def)
+
+; Import PI and the javascript math functions.
+;; CS: pprint the Javathcript prelude fragment.
+
+(let* ((math (js "Math"))
+       (import-math
+        (lambda (funcname) 
+          (def-dyn funcname (method math funcname)))))
+  (map import-math
+       '(sin cos tan asin acos atan atan2
+         abs floor ceil round trunc
+         max min
+         pow exp sqrt log log2 log10
+         hypot
+         random)))
+
+;; Jathp extras via defines; put here to be in correct scope.
+(def expt pow)
+(def != /=)
+
+</script>
+
+
+<!-- ==================================================================== -->
+<script type="text/lisp">
+(defun msg (rlist) ;; Create webpage popup alert/msg.
+  (list
+    (message (concat "msg: " rlist ))))
+</script>
+
+
+<!-- ==================================================================== -->
+<script type="text/lisp">
+;; JP:
+;; Test Lisp stuff, for showing to console below.
+(defun fac (rn) ;; Just for test fun.
+  (if (< rn 2)
+      1
+    (* rn (fac (- rn 1)))))
+(defun fac2 (rn)
+     (if (< rn 2)
+         1
+       (let ((prod 1))
+         (while (>= rn 2)
+           (setq prod (* rn prod))
+           (setq rn (- rn 1)))
+         prod)))
+
+;; CS: print fcn for Jathp (to console)
+;; Must create a print-string for the value.
+;; [CS: Crash sensitivity to dbl-quoted open, "("; needs leading space.]
+(defun stgr (rx)
+  (cond
+   ((numberp rx) (concat "" rx))
+   ((null rx) "nil")
+   ((stringp rx) rx)
+   ((atom rx) (concat "" rx))
+   ((functionp rx) (fcn-guts rx))
+;   ((functionp rx) "[function]")
+   ((consp rx)
+    (let* ((open (substring " (" 1 2)) ;; use space before '(': Crash sensitive.
+           (rxlen (length rx))
+           (retv (concat open (stgr (car rx))))) ;; Recur on lkid/car.
+      (setq rx (cdr rx))
+      (while rx
+        (setq retv (concat retv " " (stgr (car rx)))) ;; Recur on lkid/car.
+        (setq rx (cdr rx)))
+      (concat retv ")")))
+   (t "[Unknown object]")))
+
+(defun logr (rx) ;; Shorter way to 'console.log in JS'.
+  (let ((log (method console "log")))
+    (log (stgr rx)))) ;; Nicer to strigify the lisp expr first.
+;; tests
+(logr "hello logr") ;; Announces that itself is available.
+(logr logr) ;; Show example of what a Lisp fcn (AKA Lambda) looks like.
+
+;; Show some lisp exprs working, to console.
+(let* ((add2 (lambda (ex) (+ 2 ex)))
+       (retv (map add2 '(5 6 7)))
+       (xx (list "msg map = " retv))
+       (yy "foo")
+       (zz (list 'a 8)) ;; CS: For Cons fcn, 2nd arg should be a list.
+         )
+   (list
+     (logr xx)
+     (logr (concat "xx string? " (if (stringp xx) 1 0)))
+     (logr (stringp "foo"))
+     (logr (concat "(stringp 41) =" (stringp 41) "."))
+     (logr (concat "len of nil = " (length '())))
+     (logr (concat "(null '()) = " (null '()) "."))
+     (logr (concat "(null nil) = " (null nil) "."))
+     (logr (concat "(null t) = " (null t) "."))
+     (logr (concat "(stgr nil) = " (stgr nil) "."))
+     (logr (concat "(stgr yy) = " (stgr yy) "."))
+     (logr (concat "(atom 43) = " (atom 43) "."))
+     (logr (concat "(stgr 43) = " (stgr 43) "."))
+     (logr (concat "(consp 43) = " (consp 43) "."))
+     (logr (concat "(consp '(a)) = " (consp '(a)) "."))
+     (logr (concat "(consp '()) = " (consp '()) "."))
+     (logr (concat "(stgr '(a)) = " (stgr '(a)) "."))
+     (logr (concat "(stgr '(a(b)c)) = " (stgr '(a(b)c)) "."))
+     (logr (concat "(stgr '(a(b)c . d)) = " (stgr '(a(b)c.d)) "."))
+     (logr (stgr retv))
+     (logr (concat "(stgr add2) = " (stgr add2) "."))
+         ;; CS: Jathp, the value of a "lambda" call is a [function].
+     (logr (concat "(stgr (lambda (ex) (+ 2 ex))) = "
+         (stgr (lambda (ex) (+ 2 ex))) "."))
+         ))
+
+(let* (;(log (method console "log"))
+       (xfcn (lambda (ex) (* 2 ex))))
+  (logr (stgr xfcn))
+  (logr (list
+         "lambda -->" ;; CS: Jathp does "apply" directly.
+         ((lambda (ex) (* 2 ex)) ;; Jathp does "apply" directly.
+         12))))
+
+;; Show some more lisp exprs working, to console.
+  (let*
+    (;(log (method console "log"))
+  ;   (logr (lambda (rx) (log (stgr rx))))
+     (ax (list "ax:>5" 5 ":>" 4.3 ":>" "fred"))
+     (bx (list "bx:>(+ 4" (+ 4) ":>" (+ 4 3 4) ":>" (* 3 4 5) ":>" (/ 31.0 7 2)))
+     (cx (list "cx:>(% 31" (% 31 7) ":>" (= 4 4) ":>" (!= 4 4) ":>" (or nil 3 nil t)))
+     (dx (list "dx:>(* 3" (* 3 (/ 31 7 2)) ":>" '(a b c) ":>" '(a 3 (b (4)) c 6)))
+     (ex (list "ex:>'fred" 'fred ":>" 'whats-up ":>" 'My12 ))
+     (fx (list "fx:>(expt" (expt 2 8) ":>" (log2 4096 2) ":>" (cos (* 90 (/ 3.14 180.0)))))
+     (gx (list "gx:>(let ((b 2" (let ((b 2) (c 31)) (* b c))))
+     (hx (list "hx:>(let ((a 3)" (let ((a 3) (b 2)) (if (< a b) "a < b" "a >= b"))))
+     (ix (list "ix:>(let ((a 4)" (let ((a 4) (b 2)) (while (>= a b) (setq a (- a 1))) a)))
+     (jx (list "jx:>(fac 7)" (fac 7) ":>(fac2 7)" (fac2 8))))
+
+    (logr ax) (logr bx) (logr cx) (logr dx) (logr ex)
+    (logr fx) (logr gx) (logr hx) (logr ix)
+    (logr (fac 6))
+    (logr jx)
+         )
+</script>
+
+<!-- =========================================== btn onclick =========== -->
+<script type="text/lisp">
+  (logr "Beg onclick handler =====")
+  ;; For P5 btn, set a new Lisp fcn as its onclick callback/handler.
+  (let* ((button (getElement "btn"))
+         (nameField (getElement "name"))
+         (clickHandler 
+          (lambda ()
+            (alert (concat "Hello fm Jth: " (js "g_input.value()"))))))
+  (set button "onclick" (export clickHandler)) )
+  (logr "End onclick handler =====")
+</script>
+
+<!-- =========================================== End of page =========== -->
+<script type="text/lisp">
+;;JP:
+(msg "End of page. Next is P5 Anim.")
+</script>
+
+<!-- =========================================== reverse =========== -->
+<script type="text/lisp">
+  (logr "Beg reverse =====")
+(defun reverse (rlist)
+  ;;"Return a list with the given elements in reverse order, or nil."
+  (if (consp rlist) ;; Else nil.
+      (let ((retv nil))
+        (while rlist
+          (setq retv (cons (car rlist) retv))
+          (setq rlist (cdr rlist)))
+        retv)))
+  (logr "End reverse =====")
+</script>
+
+<!-- ========================================= lisp draw fn =========== -->
+<script type="text/lisp">
+;; Now Create simple draw fn & have P5 draw call it.
+(logr "Beg html lisp draw fn =====")
+;; Use "jp-" prefix to avoid stepping on P5 fcns; namespace for the
+poor.
+;; ================================================== jp-rect ====
+(defun jp-rect (rx ry rwid rhgt) ;; x,y = upper-left corner pos, P5.
+  (js (concat "rect(" rx "," ry "," rwid "," rhgt ")" )))
+
+;; ================================================== jp-rect ====
+(defun jp-circle (rx ry rdia) ;; x,y = center pos, P5.
+  (js (concat "circle(" rx "," ry "," rdia ")" )))
+
+;; ================================================== jp-cell-rbg-sum ====
+(defun jp-cell-rbg-sum ( rx ry ) ;; rx,ry is upper-left cell corner pos.
+  (let* ((px (+ 2 rx)) ;; Offset into cell.
+         (py (+ 2 ry))
+         (rbg-sum (js (concat "csjs_get_pixel_color_sum(" px "," py ")"))))
+                      ;;dbg (logr (concat "rbg-sum = " (stgr rbg-sum)))
+    rbg-sum))
+
+;; ================================================== jp-draw-bot ====
+(defun jp-draw-bot ( )
+  (let* ((sz (js "g_canvas.cell_size"))
+         (zz (- sz 2)) ;; -2 to size inside cell grid lines.
+         ;; bot.x * sz to cvt from cell pos to pixel pos
+         ;; +1 to paint inside the grid lines
+         (xx (+ 1 (* sz (js "g_bot.x"))))
+         (yy (+ 1 (* sz (js "g_bot.y"))))
+         (pix (jp-cell-rbg-sum xx yy)))    
+    (if (= 0 pix) ;; Q: paint a color, or repaint it black.
+        (let ( )
+          (js "stroke( 'white' )" ) ;; Named color.
+          (js "fill( '#' + g_bot.color )")) ;; "#RGB" color
+      (js "stroke( 'black' )" )
+      (js "fill( 'black' )"))
+    (if (= 0 (js "g_bot.odd"))
+        (jp-rect xx yy zz zz)
+      (jp-circle xx yy zz) )))
+
+;; ================================================== jp-move-bot ====
+(defun jp-move-bot ()
+  (let* ((dx (- (round (* 2 (random))) 1))
+         (dy (- (round (* 2 (random))) 1))
+         ;; We use dummy vars just so we can logr stuff as it's made.
+         (ab (logr (stgr (list "dx dy = " dx dy))))
+         (gbot (js "g_bot"))
+         (bodd (js "g_bot.odd")) ;; 1st time, odd is MIA & we get nil.
+         (aab (logr (stgr (list "bodd = " bodd))))
+         ;; Here, we use (or add and use) the g_bot.odd slot.
+         (aac (set gbot "odd" (- 1 (or bodd 0))))
+         (bx (js "g_bot.x"))
+         (boxwid (js "g_box.wid"))
+         (newx (% (+ dx bx boxwid) boxwid))
+         (by (js "g_bot.y"))
+         (boxhgt (js "g_box.hgt"))
+         (newy (% (+ dy by boxhgt) boxhgt))
+         (ac (logr (stgr (list "newx newy = " newx newy))))
+         (bcolor (js "g_bot.color"))
+         (newcolor (+ 100 (% (+ 1 bcolor) 156))))
+    (js (concat "g_bot.x = " (stgr newx)))
+    (js (concat "g_bot.y = " (stgr newy)))
+    (js (concat "g_bot.color = " (stgr newcolor)))))
+
+;; Build & Setup l4j.draw_fn(): a JP lisp fn callable from JS.
+;; NB, a JS global var isn't same as a JP global var.
+;;  so we/JP must get hands on the JS var via a js() call.
+;;  and we 
+(let* ((l4j (js "g_l4job"))
+       (fnx (lambda ( ) ;; Here's the JP lisp fn being built.
+              (let ()
+                (jp-move-bot)
+                (jp-draw-bot)
+                ))))
+  (set l4j "draw_fn" (export fnx)) ;; Here, we install the JP fn on a JS obj.
+  (logr (stgr (list "g_l4job.draw_fn is set")))
+  (logr (stgr (list "g_l4job.draw_fn() = " (js "g_l4job.draw_fn")))))
+(logr "End html lisp draw fn =====")
+
+</script>
+
+
+</html>
