@@ -43,7 +43,7 @@ function setup() // P5 Setup Fcn
 {
     console.log( "Beg P5 setup =====");
     console.log( "@: log says hello from P5 setup()." );
-    g_canvas = { cell_size:10, wid:64, hgt:48 };
+    g_canvas = { cell_size:20, wid:37, hgt:29 };
     g_frame_cnt = 0; // Setup a P5 display-frame counter, to do anim
     g_frame_mod = 24; // Update ever 'mod' frames.
     g_stop = 0; // Go by default.
@@ -53,7 +53,7 @@ function setup() // P5 Setup Fcn
     let height = sz * g_canvas.hgt;
     g_cnv = createCanvas( width, height );  // Make a P5 canvas.
     console.log( "@: createCanvas()." );
-    draw_grid( 10, 50, 'white', 'yellow' );
+    draw_grid( 20, 20, 'white', 'red' );
     do_btn( ); // 
 
     console.log( "End P5 setup =====");
