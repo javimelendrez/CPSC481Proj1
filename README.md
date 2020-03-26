@@ -11,6 +11,11 @@ bot move from tile to tile, including backing up due to a dead end. And it will 
 current best path tiles in a different color from those paths rejected. The project will be 
 built in Jathp-Lisp running with P5, JS, HTML in a web browser page.
 
+How to build project: 
+  - Download zip folder
+  - extract folder on desktop
+  - open up "index-js-p5-jathp-5" file in any browser of choice
+
 Set Up and installation: N/A
 
 Features: bot starts at top left corner and makes its way down to the bottom right corner
