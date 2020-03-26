@@ -17,6 +17,7 @@ var g_stop; // Go by default.
 var g_cnv;   // To hold a P5 canvas.
 var g_button; // btn
 var g_button2; // btn
+var sc; //step counter
 
 var g_l4job = { id:1 }; // Put Lisp stuff for JS-to-access in ob; id to make ob.
 
@@ -58,6 +59,8 @@ function setup() // P5 Setup Fcn
     console.log( "@: createCanvas()." );
     draw_grid( 20, 20, 'white', 'red' );
     do_btn( ); // 
+	
+	sc = document.getElementById("stepCounter");
 
     console.log( "End P5 setup =====");
 }

@@ -26,6 +26,9 @@ this file includes the bots movement and draw logic in lisp -->
     <h1>Project 1 -- Best First Search</h1>    <!-- Text in a high priority heading -->
     <p>    <!-- A paragraph 'break', to start a new paragraph -->
     Team AiBros.
+	<p>    <!-- Step Counter -->
+    Step Count:
+	<p id="stepCounter">    <!-- Step Counter -->
   </body>    <!-- HTML display page ends here -->
 
 <script src="assets/draw-stuff.js"></script> <!-- Load some JS fcns in a file -->
@@ -450,6 +453,7 @@ poor.
 	
 	(js (concat "g_bot.x = " (stgr newx)))
     (js (concat "g_bot.y = " (stgr newy)))
+	(js (concat "sc.innerHTML = " (length path)))
 	
 ))
 ;; Build & Setup l4j.draw_fn(): a JP lisp fn callable from JS.
