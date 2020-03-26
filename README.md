@@ -14,9 +14,11 @@ built in Jathp-Lisp running with P5, JS, HTML in a web browser page.
 How to build project: 
   - Download zip folder
   - extract folder on desktop
-  - open up "index-js-p5-jathp-5" file in any browser of choice
+  - open up "project1" file in any browser of choice
 
 Set Up and installation: N/A
+
+Contents: styless.css, project1.html, p5.js, draw-stuff.js, cs-sketch.js, Jathp.js, README.MD, draw-stuff.js 
 
 Features: bot starts at top left corner and makes its way down to the bottom right corner
 using BestFS algorithm, the bot leaves yellow squares in which there are more than one
