@@ -1,11 +1,4 @@
-// Jathp (cuz easier to say than Javathcript)
-// Mod'd from Javathcript (created by kybernetikos, thank you)
-// Time-stamp: <2020-01-26 17:48:08 Chuck Siska>
-// Modified by Chuck Siska
-// NB, orig file was mushed like this; so we keep it same.
-// Add "while <test> <exprs>" for looping.
-// Add "let <bindings> <exprs>" for plural expressions.
-// Rename Symbol as JSymbol in Jathp.js; to avoid collide w P5.js
+//code provided by Chuck Siska
 
 var Util=function(){function Util(){}Util.prototype.extend=function(subclass,superclass){var intermediate=function(){};intermediate.prototype=superclass.prototype;subclass.prototype=new intermediate};Util.prototype.bind=function(object,func){if(typeof func=="string")func=object[func];if(typeof func!="function")throw new Error("Invalid function passed to bind");return function(){func.apply(object,arguments)}};Util.prototype.getFile=function getFile(url,successHandler,failureHandler,timeout,timeoutHandler){var req=
 new XMLHttpRequest;req.open("GET",url,true);req.onreadystatechange=function(aEvt){if(req.readyState==4)if(req.status==200||url.substring(0,5)=="file:"&&req.status==0)successHandler(req.responseText,req.getAllResponseHeaders());else if(failureHandler!=null)failureHandler(url,req.status)};req.send(null);if(timeout!=null&&timeout>0)setTimeout(function(){req.abort();if(timeoutHandler!=null)timeoutHandler(url,timeout)},timeout)};Util.prototype.lazy=function(initialise){var value=null;return function(){if(value==

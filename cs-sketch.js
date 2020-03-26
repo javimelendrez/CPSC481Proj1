@@ -1,3 +1,6 @@
+//code provided by professor with a few modificaitons
+//team AiBros
+//this sets up the setup and draw functions
 // cs-sketch.js; P5 key animation fcns.  // CF p5js.org/reference
 // Time-stamp: <2020-02-17 19:15:08 Chuck Siska>
 
@@ -27,7 +30,7 @@ function do_btn( )
     g_button = createButton( "Submit" );
     g_button.id( "btn" ); //Add for P5 btn onclick
     g_button.position( 160, 30 );
-    text( "Enter your name.", 20, 20 );
+    // text( "Enter your name.", 20, 20 );
 
     g_button2 = createButton( "Save Image" );
     g_button2.position( 20, 60 );
