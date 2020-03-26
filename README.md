@@ -1,6 +1,7 @@
 # CPSC 481-03 Project 1 
 
 Team Name: AiBros
+
 Team Members: Javier Melendrez, Omar Al Nabulsi, Brannon Ha, Daniel Pestolesi
 
 Intro: we will build a bot that will start from the upper-left ring in of a 2D grid of cells 
@@ -17,4 +18,5 @@ using BestFS algorithm, the bot leaves yellow squares in which there are more th
 paths on the path given.
 
 External requirements: none
+
 Bugs: none
