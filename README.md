@@ -18,7 +18,7 @@ How to build project:
 
 Set Up and installation: N/A
 
-Contents: styless.css, project1.html, p5.js, draw-stuff.js, cs-sketch.js, Jathp.js, README.MD, draw-stuff.js 
+Contents: styless.css, project1.html, p5.js, draw-stuff.js, cs-sketch.js, Jathp.js, README.MD, draw-stuff.js, Project Algorithm Report
 
 Features: bot starts at top left corner and makes its way down to the bottom right corner
 using BestFS algorithm, the bot leaves yellow squares in which there are more than one
